@@ -11,7 +11,16 @@ class _BreakfastState extends State<Breakfast> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ,
+      appBar: AppBar(
+        title: Text(
+          "Breakfast",
+          style: TextStyle(fontFamily: ""),
+        ),
+        centerTitle: true,
+      ),
+      body: Container(
+
+      ),
     );
   }
 }
