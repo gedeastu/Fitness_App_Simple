@@ -12,11 +12,15 @@ class _BreakfastState extends State<Breakfast> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        leading: IconButton(onPressed:(){}, icon: Icon(Icons.arrow_back)),
+        title: const Text(
           "Breakfast",
-          style: TextStyle(fontFamily: ""),
+          style: TextStyle(fontFamily: "Plus Jakarta Sans",fontWeight: FontWeight.bold, fontSize: 18.0),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(onPressed:() {}, icon: Icon(Icons.menu))
+        ],
       ),
       body: Container(
 
