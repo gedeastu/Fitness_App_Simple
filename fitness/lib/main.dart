@@ -14,7 +14,7 @@ class Home extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Plus Jakarta Sans'),
-      home: Breakfast(),
+      home: const Breakfast(),
     );
   }
 }

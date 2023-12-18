@@ -19,7 +19,7 @@ class Category{
     );
 
     categories.add(
-      Category(name: "Cake", icon: 'assets/cake.svg', boxColor: const Color.fromARGB(255, 121, 130, 254))
+      Category(name: "Cake", icon: 'assets/cake.svg', boxColor: const Color.fromARGB(255, 254, 106, 237))
     );
 
     categories.add(
@@ -27,7 +27,7 @@ class Category{
     );
 
     categories.add(
-      Category(name: "Smoothie", icon: 'assets/fruit.svg', boxColor: const Color.fromARGB(255, 121, 130, 254))
+      Category(name: "Smoothie", icon: 'assets/fruit.svg', boxColor: const Color.fromARGB(255, 254, 106, 237))
     ); 
 
     return categories;

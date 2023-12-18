@@ -8,7 +8,7 @@ AppBar AppBarWidget() {
           height: 100,
           width: 100,
           margin: const EdgeInsets.all(7.0),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0),color: Color.fromARGB(20, 161, 161, 161)),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0),color: const Color.fromARGB(20, 161, 161, 161)),
           child: IconButton(onPressed:(){}, icon: const Icon(Icons.arrow_back),color: Colors.black, alignment: Alignment.center,),
         ),
       ),

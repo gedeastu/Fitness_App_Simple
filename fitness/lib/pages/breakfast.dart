@@ -1,10 +1,11 @@
 import 'package:fitness/components/AppBarWidget.dart';
 import 'package:fitness/models/category_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 // ignore: must_be_immutable
 class Breakfast extends StatefulWidget {
-  Breakfast({super.key});
+  const Breakfast({super.key});
 
   @override
   State<Breakfast> createState() => _BreakfastState();
@@ -36,43 +37,63 @@ class _BreakfastState extends State<Breakfast> {
           children: [
             _searchField(),
             const SizedBox(height: 40.0,),
-            const Padding(
-              padding: EdgeInsets.only(left: 20,right: 20),
-              child: Column(
-                children: [
-                  Text("Category",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0),)
-                ],
-              ),
-            ),
-            const SizedBox(height: 20.0,),
-            Container(
-              height: 150,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: categories.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    width: 100,
-                    decoration: BoxDecoration(
-                     color:  categories[index].boxColor.withOpacity(0.4),
-                     borderRadius: BorderRadius.circular(20.0)
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle
-                      ),
-                    ),
-                  );
-                }, separatorBuilder: (BuildContext context, int index) { 
-                  return SizedBox(width:25);
-                 },
-              ),
-            )
+            _categoriesSection(),
           ],
         ),
       ),
     );
+  }
+
+  Column _categoriesSection() {
+    return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(left: 20,right: 20),
+                child: Column(
+                  children: [
+                    Text("Category",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0),)
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20.0,),
+            SizedBox(
+            height: 150,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.only(left: 20,right: 20),
+              itemCount: categories.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                   color:  categories[index].boxColor.withOpacity(0.4),
+                   borderRadius: BorderRadius.circular(20.0)
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        height: 60,
+                        width: 60,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: SvgPicture.asset(categories[index].icon),
+                      ),
+                      Text(categories[index].name,style: const TextStyle(fontWeight: FontWeight.w500),)
+                    ],
+                  ),
+                );
+              }, separatorBuilder: (BuildContext context, int index) { 
+                return const SizedBox(width:25);
+               },
+            ),
+          )
+            ],
+          );
   }
 
   Container _searchField() {
