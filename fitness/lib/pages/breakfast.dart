@@ -1,5 +1,6 @@
 import 'package:fitness/components/AppBarWidget.dart';
 import 'package:fitness/models/category_model.dart';
+import 'package:fitness/models/recommendation_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -12,22 +13,25 @@ class Breakfast extends StatefulWidget {
 }
 
 class _BreakfastState extends State<Breakfast> {
-  List<Category> categories = [];
 
-  void _getCategories(){
+  List<Category> categories = [];
+  List<Recommendations> recommendations = [];
+
+  void _getInitial(){
     categories = Category.getCategories();
+    recommendations = Recommendations.getRecommendation();
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    _getCategories();
+    _getInitial();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    _getCategories();
+    _getInitial();
     return Scaffold(
       appBar: AppBarWidget(),
       backgroundColor: Colors.white,
@@ -42,7 +46,74 @@ class _BreakfastState extends State<Breakfast> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
+                Container(
+                  width: 180.0,
+                  child: const Padding(
+                    padding: EdgeInsets.only(left: 20.0),
+                    child: Text("Recommendation for Diet", style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),)
+                  ),
+                ),
+                const SizedBox(height: 20.0,),
+                Container(
+                  height: 240.0,
+                  child: ListView.separated(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  scrollDirection: Axis.horizontal,
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(width: 25,);
+                  },
+                  itemCount: recommendations.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width: 210,
+                      //height: 150,
+                      padding: EdgeInsets.only(bottom: 10.0,),
+                      decoration: BoxDecoration(
+                        color: recommendations[index].bgCard.withOpacity(0.4),
+                        borderRadius: BorderRadius.circular(20.0)
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                        Container(
+                          width: 110,
+                          height: 110,
+                          child: SvgPicture.asset(recommendations[index].icon),
+                        ),
+                        Text(recommendations[index].nameFood,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0),),
+                        const SizedBox(height: 5.0,),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                          child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(recommendations[index].level + ' | ' + recommendations[index].time + ' | ' + recommendations[index].calories,style: const TextStyle(fontSize: 15.0),),
+                          ],
+                        ),
+                        ),
+                        const SizedBox(height:5.0,),
+                        Container(
+                          width: 120,
+                          height: 40,
+                          //padding: EdgeInsets.all(16.0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30.0),
+                              gradient: recommendations[index].viewIsSelected ? LinearGradient(colors:[Color.fromARGB(255, 157, 206, 255),Color.fromARGB(255, 146, 164, 253)]) : LinearGradient(colors:[Color.fromARGB(255, 157, 206, 255),Color.fromARGB(255, 157, 206, 255)])
+                          ),
+                          child: TextButton(
+                          onPressed:(){
+                            setState(() {
+                              recommendations[index].viewIsSelected = !recommendations[index].viewIsSelected;
+                            });
+                          }, 
+                          child:Text("View") ,
+                        ),
+                        )
+                      ]),
+                    );
+                  },
+                ),
+                )
               ],  
             )
           ],
