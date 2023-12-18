@@ -46,15 +46,27 @@ class _BreakfastState extends State<Breakfast> {
             ),
             const SizedBox(height: 20.0,),
             Container(
-              color: Colors.green,
               height: 150,
-              child: ListView.builder(
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
                 itemCount: categories.length,
                 itemBuilder: (context, index) {
                   return Container(
-                    child:Icon(Icons.food_bank_sharp) ,
+                    width: 100,
+                    decoration: BoxDecoration(
+                     color:  categories[index].boxColor.withOpacity(0.4),
+                     borderRadius: BorderRadius.circular(20.0)
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle
+                      ),
+                    ),
                   );
-                },
+                }, separatorBuilder: (BuildContext context, int index) { 
+                  return SizedBox(width:25);
+                 },
               ),
             )
           ],

@@ -15,20 +15,20 @@ class Category{
     List<Category> categories = [];
 
     categories.add(
-      Category(name: "Salad", icon: 'assets/salad.svg', boxColor: Colors.blue)
+      Category(name: "Salad", icon: 'assets/salad.svg', boxColor: const Color.fromARGB(255, 121, 130, 254))
     );
 
     categories.add(
-      Category(name: "Cake", icon: 'assets/cake.svg', boxColor: Colors.blue)
+      Category(name: "Cake", icon: 'assets/cake.svg', boxColor: const Color.fromARGB(255, 121, 130, 254))
     );
 
     categories.add(
-      Category(name: "Pie", icon: 'assets/pie.svg', boxColor: Colors.blue)
+      Category(name: "Pie", icon: 'assets/pie.svg', boxColor: const Color.fromARGB(255, 121, 130, 254))
     );
 
     categories.add(
-      Category(name: "Smoothie", icon: 'assets/fruit.svg', boxColor: Colors.blue)
-    );
+      Category(name: "Smoothie", icon: 'assets/fruit.svg', boxColor: const Color.fromARGB(255, 121, 130, 254))
+    ); 
 
     return categories;
   }
