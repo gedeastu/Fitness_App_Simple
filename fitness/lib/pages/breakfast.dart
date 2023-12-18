@@ -38,6 +38,13 @@ class _BreakfastState extends State<Breakfast> {
             _searchField(),
             const SizedBox(height: 40.0,),
             _categoriesSection(),
+            const SizedBox(height: 40.0,),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+              ],  
+            )
           ],
         ),
       ),
@@ -48,15 +55,15 @@ class _BreakfastState extends State<Breakfast> {
     return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
+            const Padding(
                 padding: EdgeInsets.only(left: 20,right: 20),
                 child: Column(
                   children: [
                     Text("Category",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0),)
                   ],
                 ),
-              ),
-              const SizedBox(height: 20.0,),
+            ),
+            const SizedBox(height: 20.0,),
             SizedBox(
             height: 150,
             child: ListView.separated(
@@ -65,7 +72,7 @@ class _BreakfastState extends State<Breakfast> {
               itemCount: categories.length,
               itemBuilder: (context, index) {
                 return Container(
-                  width: 100,
+                  width: 120,
                   height: 100,
                   decoration: BoxDecoration(
                    color:  categories[index].boxColor.withOpacity(0.4),
