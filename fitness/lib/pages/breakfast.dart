@@ -13,7 +13,7 @@ class Breakfast extends StatefulWidget {
 }
 
 class _BreakfastState extends State<Breakfast> {
-
+ 
   List<Category> categories = [];
   List<Recommendations> recommendations = [];
 
@@ -74,7 +74,6 @@ class _BreakfastState extends State<Breakfast> {
                 },
                 itemCount: Recommendations.length,
                 itemBuilder: (context, index) {
-                  var bool = false;
                   print(!Recommendations[index].viewIsSelected);
                   return Container(
                     width: 210,
@@ -110,7 +109,7 @@ class _BreakfastState extends State<Breakfast> {
                         onPressed:(){
                           setState(() {
                             Recommendations[index].viewIsSelected = !Recommendations[index].viewIsSelected;
-                            bool = !bool;
+                            
                           });
                         }, 
                         child:Text("View ${Recommendations[index].viewIsSelected ? true : false}", style: TextStyle(color: Recommendations[index].viewIsSelected ? Colors.blue : Colors.white,fontWeight: FontWeight.bold),) ,
@@ -127,7 +126,6 @@ class _BreakfastState extends State<Breakfast> {
 
   Column _categoriesSection() {
     var Categories = categories;
-    bool condition = true;
     return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -166,7 +164,7 @@ class _BreakfastState extends State<Breakfast> {
                         ),
                         child: SvgPicture.asset(Categories[index].icon),
                       ),
-                      Text(Categories[index].name,style: const TextStyle(fontWeight: FontWeight.w500),),
+                      Text(Categories[index].name,style: const TextStyle(fontWeight: FontWeight.w500),)
                     ],
                   ),
                 );
