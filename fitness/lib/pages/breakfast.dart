@@ -17,7 +17,7 @@ class _BreakfastState extends State<Breakfast> {
   List<Category> categories = [];
   List<Recommendations> recommendations = [];
 
-  void _getInitial(){
+  void _getInitialInfo(){
     categories = Category.getCategories();
     recommendations = Recommendations.getRecommendation();
   }
@@ -25,13 +25,14 @@ class _BreakfastState extends State<Breakfast> {
   @override
   void initState() {
     // TODO: implement initState
-    _getInitial();
+    _getInitialInfo();
     super.initState();
   }
-
+  
   @override
   Widget build(BuildContext context) {
-    _getInitial();
+    //print(categories);
+    _getInitialInfo();
     return Scaffold(
       appBar: AppBarWidget(),
       backgroundColor: Colors.white,
@@ -43,86 +44,90 @@ class _BreakfastState extends State<Breakfast> {
             const SizedBox(height: 40.0,),
             _categoriesSection(),
             const SizedBox(height: 40.0,),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 180.0,
-                  child: const Padding(
-                    padding: EdgeInsets.only(left: 20.0),
-                    child: Text("Recommendation for Diet", style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),)
-                  ),
-                ),
-                const SizedBox(height: 20.0,),
-                Container(
-                  height: 240.0,
-                  child: ListView.separated(
-                  padding: const EdgeInsets.only(left: 20.0),
-                  scrollDirection: Axis.horizontal,
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(width: 25,);
-                  },
-                  itemCount: recommendations.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      width: 210,
-                      //height: 150,
-                      padding: EdgeInsets.only(bottom: 10.0,),
-                      decoration: BoxDecoration(
-                        color: recommendations[index].bgCard.withOpacity(0.4),
-                        borderRadius: BorderRadius.circular(20.0)
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                        Container(
-                          width: 110,
-                          height: 110,
-                          child: SvgPicture.asset(recommendations[index].icon),
-                        ),
-                        Text(recommendations[index].nameFood,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0),),
-                        const SizedBox(height: 5.0,),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(recommendations[index].level + ' | ' + recommendations[index].time + ' | ' + recommendations[index].calories,style: const TextStyle(fontSize: 15.0),),
-                          ],
-                        ),
-                        ),
-                        const SizedBox(height:5.0,),
-                        Container(
-                          width: 120,
-                          height: 40,
-                          //padding: EdgeInsets.all(16.0),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30.0),
-                              gradient: recommendations[index].viewIsSelected ? LinearGradient(colors:[Color.fromARGB(255, 157, 206, 255),Color.fromARGB(255, 146, 164, 253)]) : LinearGradient(colors:[Color.fromARGB(255, 157, 206, 255),Color.fromARGB(255, 157, 206, 255)])
-                          ),
-                          child: TextButton(
-                          onPressed:(){
-                            setState(() {
-                              recommendations[index].viewIsSelected = !recommendations[index].viewIsSelected;
-                            });
-                          }, 
-                          child:Text("View") ,
-                        ),
-                        )
-                      ]),
-                    );
-                  },
-                ),
-                )
-              ],  
-            )
+            _recommendationsSection()
           ],
         ),
       ),
     );
   }
 
+  Column _recommendationsSection() {
+    var Recommendations = recommendations;
+    return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                width: 180.0,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 20.0),
+                  child: Text("Recommendation for Diet", style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),)
+                ),
+              ),
+              const SizedBox(height: 20.0,),
+              SizedBox(
+                height: 250.0,
+                child: ListView.separated(
+                padding: const EdgeInsets.only(left: 20.0),
+                scrollDirection: Axis.horizontal,
+                separatorBuilder: (context, index) {
+                  return const SizedBox(width: 25,);
+                },
+                itemCount: Recommendations.length,
+                itemBuilder: (context, index) {
+                  var bool = false;
+                  print(!Recommendations[index].viewIsSelected);
+                  return Container(
+                    width: 210,
+                    //height: 150,
+                    padding: const EdgeInsets.only(bottom: 10.0,),
+                    decoration: BoxDecoration(
+                      color: Recommendations[index].bgCard.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(20.0)
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                      SizedBox(
+                        width: 110,
+                        height: 110,
+                        child: SvgPicture.asset(Recommendations[index].icon),
+                      ),
+                      Text(Recommendations[index].nameFood,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0),),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: Text('${Recommendations[index].level} | ${Recommendations[index].time} | ${Recommendations[index].calories}',style: const TextStyle(fontSize: 13.0,color: Colors.black54),),
+                      ),
+                      Container(
+                        width: 120,
+                        height: 40,
+                        margin: const EdgeInsets.symmetric(vertical: 10.0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30.0),
+                            gradient: Recommendations[index].viewIsSelected ? LinearGradient(colors:[Color.fromARGB(255, 3, 102, 201),Color.fromARGB(255, 146, 164, 253)]) : LinearGradient(colors:[Color.fromARGB(255, 143, 199, 255),Color.fromARGB(255, 56, 146, 237)])
+                        ),
+                        child: 
+                        TextButton(
+                        onPressed:(){
+                          setState(() {
+                            Recommendations[index].viewIsSelected = !Recommendations[index].viewIsSelected;
+                            bool = !bool;
+                          });
+                        }, 
+                        child:Text("View ${Recommendations[index].viewIsSelected ? true : false}", style: TextStyle(color: Recommendations[index].viewIsSelected ? Colors.blue : Colors.white,fontWeight: FontWeight.bold),) ,
+                      ),
+                      )
+                    ]),
+                  );
+                },
+              ),
+              )
+            ],  
+          );
+  }
+
   Column _categoriesSection() {
+    var Categories = categories;
+    bool condition = true;
     return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -140,13 +145,13 @@ class _BreakfastState extends State<Breakfast> {
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.only(left: 20,right: 20),
-              itemCount: categories.length,
+              itemCount: Categories.length,
               itemBuilder: (context, index) {
                 return Container(
                   width: 120,
                   height: 100,
                   decoration: BoxDecoration(
-                   color:  categories[index].boxColor.withOpacity(0.4),
+                   color:  Categories[index].boxColor.withOpacity(0.3),
                    borderRadius: BorderRadius.circular(20.0)
                   ),
                   child: Column(
@@ -159,9 +164,9 @@ class _BreakfastState extends State<Breakfast> {
                           color: Colors.white,
                           shape: BoxShape.circle,
                         ),
-                        child: SvgPicture.asset(categories[index].icon),
+                        child: SvgPicture.asset(Categories[index].icon),
                       ),
-                      Text(categories[index].name,style: const TextStyle(fontWeight: FontWeight.w500),)
+                      Text(Categories[index].name,style: const TextStyle(fontWeight: FontWeight.w500),),
                     ],
                   ),
                 );

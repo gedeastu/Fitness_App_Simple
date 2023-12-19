@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 AppBar AppBarWidget() {
     return AppBar(
-      
       leading: GestureDetector(
         child: Container(
           height: 100,

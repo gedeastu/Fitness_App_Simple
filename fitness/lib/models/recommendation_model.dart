@@ -21,7 +21,6 @@ class Recommendations{
 
   static List<Recommendations> getRecommendation(){
     List<Recommendations> recommendations = [];
-
     recommendations.add(
       Recommendations(icon: "assets/cake.svg" ,nameFood: "Honey Pancake", level: "Easy", time: "30mins", calories: "180kCal", bgCard: const Color.fromARGB(255, 121, 130, 254,),viewIsSelected: false)
     );
